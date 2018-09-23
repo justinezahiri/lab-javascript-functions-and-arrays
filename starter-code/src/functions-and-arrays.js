@@ -1,12 +1,18 @@
 // Find the maximum
-function maxOfTwoNumbers(a,b){
-  if (a > b){
+/*
+find the larger of two numbers
+param a,b: numbers to be compared
+returns: the larger of the 2 numbers
+*/
+function maxOfTwoNumbers(a,b) {
+  if (a > b) {
     return a;
   }
   else {
     return b;
   }
 }
+
 // Finding Longest Word
 /* 
 *FindLongestWord - find longest word in an array
@@ -14,6 +20,20 @@ function maxOfTwoNumbers(a,b){
 *returns : the longest string in the array
 */
 
+function findLongestWord(wordArr) {
+  var longestWordSoFar = '';
+  var longestLengthSoFar = 0;
+  for (var i = 0; i < wordArr.length; i++) {
+    var currentWordLength = wordArr[i].length; 
+    if (currentWordLength > longestLengthSoFar) {
+      longestLengthSoFar = currentWordLength;
+      longestWordSoFar = wordArr[i];
+    }
+  }
+  return longestWordSoFar;
+}
+
+// Testing the function findLongestWord
 var words = [
   'mystery',
   'brother',
@@ -23,44 +43,74 @@ var words = [
   'orchard',
   'crackpot'
 ];
-function FindLongestWord(wordsArr){
-  var longestWordSoFar = '';
-  var longestLengthSoFar = 0;
-  for(var i=0; i < wordsArr.length; i++){
-    var thisLen = wordsArr[i].length;
-    if (thisLen > longestLengthSoFar) {
-      longestLengthSoFar = thisLen;
-      longestWordSoFar = wordsArr[i];
-    }
-  }
-return longestWordSoFar
-}
+
+var testWord = findLongestWord(words);
+console.log(testWord);
 
 // Calculating a Sum
-
-var numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
-
-function sumArray(numbers){
+/*
+add up a bunch of numbers
+param: numbersArr: array of numbers
+returns : sum of all the numbers
+*/
+function sumArray(numbersArr) {
   var sumItAll = 0;
-  if (typeof(numbers) != 'array') return 0;
-  if (numbers.length == 0) return O;
-  for (var i = 0; i < numbers.length; i++) {
-    sumItAll += numbers[i];
+  if (typeof(numbersArr) != 'object') return 0;
+  if (numbersArr.length == 0) return 0;
+
+  for (var i = 0; i < numbersArr.length; i++) {
+    sumItAll += numbersArr[i];
   }
    return sumItAll;  
 }
 
-// Calculate the Average
+// Testing the function sumArray
+var numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
+var testNumbers = sumArray(numbers);
+console.log(testNumbers);
 
-var numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
-function averageNumbers(numbersAvg){
+
+// Calculate the Average
+/*
+compute average of a list of numbers
+param: numbersAvg, array of numbers
+returns: average of all those numbers
+*/
+function averageNumbers(numbersAvg) {
   var sumIt = sumArray(numbers);
   if (typeof(numbersAvg) !='object') return 0;
-    return sumIt / numbersAvg.length;
-  
+  return sumIt / numbersAvg.length;
 }
 
+var numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
+
 // Array of Strings
+/*
+compute average length of a list of words
+param: wordsArr, array of strings
+returns: average length of those strings (numeric)
+*/
+function averageWordLength(wordsArr) {
+  var totalLengthOfAllWords = 0;
+  for (var i = 0; i < wordsArr.length; i++) {
+    totalLengthOfAllWords += wordsArr[i].length;
+  }
+  return totalLengthOfAllWords / wordsArr.length;
+}
+
+//other way to code this function ; with a forEach
+
+function averageWordLength(wordsArr) {
+  if (typeof(wordsArr) != 'object') return undefined;
+  if (wordsArr.length == 0) return undefined;
+  //first sum all lengths
+  var sumWordLengths = 0;
+  wordsArr.forEach(function(oneword) {
+    sumWordLengths += oneword.length;
+  });
+  return sumWordLengths / wordsArr.length;
+}
+
 var wordsArr = [
   'seat',
   'correspond',
@@ -73,11 +123,25 @@ var wordsArr = [
   'fuel',
   'palace'
 ];
-function averageWordLength(wordsArr) {
-  //TODO
-}
 
 // Unique Arrays
+/*
+Dedup an array of strings (words)
+param: wordArr, array of strings
+returns: dedeup'd array
+*/
+function uniquifyArray(wordArr) {
+  if (typeof(wordArr) != 'object') return undefined;
+  if (wordArr.length == 0) return undefined;
+  var uniqArr = [];
+  wordArr.forEach(function (oneWord) {
+    if (uniqArr.indexOf(oneWord) == -1) { // if not here yet...
+      uniqArr.push(oneWord); // add it
+    }
+  });
+  return uniqArr; 
+}
+
 var wordsUnique = [
   'crab',
   'poison',
@@ -93,6 +157,22 @@ var wordsUnique = [
 ];
 
 // Finding Elements
+/*
+find if word is present in a list of words
+param : haystack, array of strings (words)
+        needle, string to seek
+return: true if found else false
+*/
+function doesWordExist(haystack,needle) {
+  if (typeof(haystack) != 'object') return undefined;
+  if (haystack.length == 0) return false;
+  if (typeof(needle) != 'string') return undefined;
+  for (var i = 0; i < haystack.length; i++) {
+    if (needle == haystack[i]) return true;
+  }
+  return false;
+}
+
 var wordsFind = [
   'machine',
   'subset',
@@ -105,6 +185,17 @@ var wordsFind = [
 ];
 
 // Counting Repetion
+function howManyTimes(haystack,needle) {
+  if (typeof(haystack) != 'object') return undefined;
+  if (haystack.length == 0) return false;
+  if (typeof(needle) != 'string') return undefined;
+  var occurenceCount = 0;
+  for (var i = 0; i < haystack.length; i++) {
+    if (needle == haystack[i]) occurrenceCount++;
+  }
+  return occurenceCount;
+}
+
 var wordsCount = [
   'machine',
   'matter',
@@ -118,6 +209,7 @@ var wordsCount = [
   'disobedience',
   'matter'
 ];
+
 // Bonus Quest
 
 var matrix = [
